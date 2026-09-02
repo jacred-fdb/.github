@@ -1,67 +1,40 @@
+<!-- markdownlint-disable MD033 MD036 MD041 -->
+
 <div align="center">
 
 # jacred-fdb
 
-**Torrent Tracker Aggregation Platform**
+**Open-source torrent tracker aggregation powered by JacRed**
 
-[![Latest Release](https://img.shields.io/github/v/release/jacred-fdb/jacred?label=stable&style=flat-square)](https://github.com/jacred-fdb/jacred/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/jacred-fdb/jacred?label=stable&style=flat-square)](https://github.com/jacred-fdb/jacred/releases/latest)
 [![Pre-release](https://img.shields.io/github/v/release/jacred-fdb/jacred?include_prereleases&label=pre-release&style=flat-square)](https://github.com/jacred-fdb/jacred/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/jacred-fdb/jacred/build.yml?branch=main&style=flat-square&label=build)](https://github.com/jacred-fdb/jacred/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/jacred-fdb/jacred/blob/main/LICENSE)
-[![Docker](https://img.shields.io/badge/docker-supported-2496ED?style=flat-square&logo=docker)](https://github.com/jacred-fdb/jacred)
+
+[Documentation](https://docs.jacred.stream) · [Releases](https://github.com/jacred-fdb/jacred/releases) · [Report an issue](https://github.com/jacred-fdb/jacred/issues)
 
 </div>
 
----
+## JacRed
 
-## Mission
+[JacRed](https://github.com/jacred-fdb/jacred) is a self-hosted torrent tracker aggregator with a fast file-based database. It combines 25 trackers behind one search service for Lampa, Sonarr, Radarr, Prowlarr, and other clients.
 
-**jacred-fdb** develops and maintains open-source tooling for torrent tracker aggregation. The platform provides a unified API layer across multiple trackers, backed by a fast file-based database (fdb), full [Jackett](https://github.com/Jackett/Jackett) API compatibility, and deployment options via Docker or systemd.
+- Jackett, Torznab, Prowlarr, and native JSON APIs
+- Local FileDB with remote synchronization and backups
+- Independent tracker parsing through cron
+- Built-in search, statistics, and configuration web interface
+- Docker images for `amd64`, `arm64`, `arm`, and `386`
+- Proxy, SOCKS5, Tor, and FlareSolverr support
 
----
+## Quick start
 
-## Core Project
-
-### [jacred](https://github.com/jacred-fdb/jacred)
-
-A self-hosted torrent aggregator and file database. JacRed indexes torrent metadata from multiple trackers, stores it in a local file DB, and supports both remote sync and independent parsing via cron.
-
-**Features**
-
-| Capability | Description |
-|------------|-------------|
-| **Jackett API** | Full compatibility with Jackett format |
-| **File DB (fdb)** | Fast local storage with sync and backup |
-| **Dual operation** | Sync from remote servers or self-parse via cron |
-| **Web UI** | Built-in interface for search and management |
-| **Proxy & Tor** | SOCKS5 support for .onion domains |
-| **Tracks module** | Optional metadata collection (tsuri) |
-| **Caching** | High-performance evercache for file access |
-| **Docker** | Multi-arch images at `ghcr.io/jacred-fdb/jacred` |
-
-**Supported trackers**
-
-| Status | Trackers |
-|--------|----------|
-| Active (parse and/or sync) | Kinozal, NNMClub, Rutor, TorrentBy, Bitru, Rutracker, Megapeer, Selezen, Toloka, Mazepa, Baibako, Lostfilm, Animelayer |
-| Retired (sync-only from legacy bases) | Anifilm, AniLibria, HDRezka |
-
----
-
-## Quick Start
-
-**Script installation** (Debian/Ubuntu, systemd + cron):
+Linux with systemd and cron:
 
 ```bash
-curl -s https://raw.githubusercontent.com/jacred-fdb/jacred/main/jacred.sh | bash
+curl -fsSL https://raw.githubusercontent.com/jacred-fdb/jacred/main/jacred.sh | bash
 ```
 
-| Option | Description |
-|--------|-------------|
-| `--no-download-db` | Skip initial database download |
-| `--pre-release` | Install latest pre-release |
-| `--update` | Update existing installation |
-
-**Docker:**
+Docker:
 
 ```bash
 docker run -d --name jacred -p 9117:9117 \
@@ -69,12 +42,15 @@ docker run -d --name jacred -p 9117:9117 \
   --restart unless-stopped ghcr.io/jacred-fdb/jacred:latest
 ```
 
-Post-install: configure `init.yaml` or `init.conf` in `/opt/jacred/`, then `systemctl restart jacred`.
+## Learn more
 
----
+- [Installation](https://docs.jacred.stream/installation)
+- [Configuration](https://docs.jacred.stream/configuration/overview)
+- [Docker deployment](https://docs.jacred.stream/deployment/docker)
+- [Tracker catalog](https://docs.jacred.stream/trackers/overview)
+- [API reference](https://docs.jacred.stream/api-reference/overview)
+- [Troubleshooting](https://docs.jacred.stream/operations/troubleshooting)
 
-## Documentation
+Building from source requires .NET 10. JacRed is available under the [MIT License](https://github.com/jacred-fdb/jacred/blob/main/LICENSE).
 
-- **Config examples:** [Data/example.yaml](https://github.com/jacred-fdb/jacred/blob/main/Data/example.yaml), [Data/example.conf](https://github.com/jacred-fdb/jacred/blob/main/Data/example.conf)
-- **Cloudflare Worker router:** [router/README.md](https://github.com/jacred-fdb/jacred/tree/main/router)
-- **Requirements:** .NET 9.0 (from source); Linux with systemd/cron (script install)
+<!-- markdownlint-enable MD033 MD036 MD041 -->
